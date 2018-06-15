@@ -170,8 +170,10 @@ public class PathTargetResolvingExpressionVisitor implements Expression.Visitor 
     private Class<?> getType(Class<?> baseClass, Attribute<?, ?> attribute) {
         if (attribute.getJavaMember() instanceof Field) {
             return ReflectionUtils.getResolvedFieldType(baseClass, (Field) attribute.getJavaMember());
-        } else {
+        } else if (attribute.getJavaMember() instanceof Method) {
             return ReflectionUtils.getResolvedMethodReturnType(baseClass, (Method) attribute.getJavaMember());
+        } else {
+            return attribute.getJavaType();
         }
     }
 

@@ -156,7 +156,7 @@ public class JpaMetamodelUtils {
                     // See https://github.com/Blazebit/blaze-persistence/issues/457 for the actual use case
                     return jpaReportedFieldClass;
                 }
-            } else {
+            } else if (attr.getJavaMember() instanceof Field) {
                 Field field = (Field) attr.getJavaMember();
                 fieldClass = ReflectionUtils.getResolvedFieldType(resolverBaseClass, field);
                 if (fieldClass == null) {
@@ -174,6 +174,8 @@ public class JpaMetamodelUtils {
                     // See https://github.com/Blazebit/blaze-persistence/issues/457 for the actual use case
                     return jpaReportedFieldClass;
                 }
+            } else {
+                return jpaReportedFieldClass;
             }
         }
 
